@@ -33,7 +33,7 @@ export class Patient {
   @Column({ name: 'middle_name', type: 'varchar', length: 50, nullable: true })
   middleName?: string;
 
-  @Column({ type: 'enum', enum: ['M', 'F', 'O'] })
+  @Column({ type: 'enum', enum: ['M', 'F'] })
   gender: 'M' | 'F';
 
   @Column({ type: 'date', name: 'dob' })
