@@ -49,4 +49,13 @@ export class PatientController {
   async remove(@Param('id') id: string): Promise<void> {
     return this.patientService.remove(id);
   }
+
+  /**
+   * GET /patients
+   * Returns an array of all patients (with clinic info).
+   */
+  @Get()
+  async findAll(): Promise<Patient[]> {
+    return this.patientService.findAll();
+  }
 }

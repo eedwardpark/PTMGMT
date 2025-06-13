@@ -82,14 +82,13 @@ export class PatientService {
     return this.patientRepo.save(patient);
   }
 
-
   /**
    * List all patients (with their Clinic obj).
    */
   async findAll(): Promise<Patient[]> {
     return this.patientRepo.find({
       relations: ['clinic'],
-      order: { id: 'DESC' }, // optional: newest first
+      order: { id: 'DESC' },
     });
   }
 
