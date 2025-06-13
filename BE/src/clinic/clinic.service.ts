@@ -24,6 +24,10 @@ export class ClinicService {
     return this.clinicRepo.save(clinic);
   }
 
+  async findAll(): Promise<Clinic[]> {
+    return this.clinicRepo.find({ order: { clinicName: 'ASC' } });
+  }
+
   async findByAcronym(acronym: string): Promise<Clinic | null> {
     return this.clinicRepo.findOne({ where: { acronym } });
   }
