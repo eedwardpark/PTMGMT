@@ -21,14 +21,16 @@ export class PatientService {
 
   /**
    * Create a new Patient using validated DTO.
-   * 1) Lookup Clinic by createDto.clinicAcronym (throws 400 if not found).  
-   * 2) Generate EHR ID if createDto.ehrId is omitted.  
-   * 3) Ensure unique EHR ID (throws 400 if duplicate).  
+   * 1) Lookup Clinic by createDto.clinicAcronym (throws 400 if not found).
+   * 2) Generate EHR ID if createDto.ehrId is omitted.
+   * 3) Ensure unique EHR ID (throws 400 if duplicate).
    * 4) Save & return the Patient (with nested clinic).
    */
   async create(createDto: CreatePatientDto): Promise<Patient> {
     // 1) Find or fail the Clinic
-    const clinic = await this.clinicService.findByAcronym(createDto.clinicAcronym.trim());
+    const clinic = await this.clinicService.findByAcronym(
+      createDto.clinicAcronym.trim(),
+    );
     if (!clinic) {
       throw new BadRequestException(
         `Clinic with acronym "${createDto.clinicAcronym}" not found.`,
@@ -49,14 +51,20 @@ export class PatientService {
       const li = createDto.lastName.trim()[0].toUpperCase();
       finalEhrId = `${createDto.clinicAcronym.trim()}${mm}${dd}${yyyy}${fi}${li}`;
       if (finalEhrId.length > 20) {
-        throw new BadRequestException('Auto-generated EHR ID exceeds 20 characters.');
+        throw new BadRequestException(
+          'Auto-generated EHR ID exceeds 20 characters.',
+        );
       }
     }
 
     // 3) Check uniqueness of finalEhrId
-    const existing = await this.patientRepo.findOne({ where: { ehrId: finalEhrId } });
+    const existing = await this.patientRepo.findOne({
+      where: { ehrId: finalEhrId },
+    });
     if (existing) {
-      throw new BadRequestException(`EHR ID "${finalEhrId}" is already in use.`);
+      throw new BadRequestException(
+        `EHR ID "${finalEhrId}" is already in use.`,
+      );
     }
 
     // 4) Create & save
@@ -72,6 +80,17 @@ export class PatientService {
       ehrId: finalEhrId,
     } as Partial<Patient>);
     return this.patientRepo.save(patient);
+  }
+
+
+  /**
+   * List all patients (with their Clinic obj).
+   */
+  async findAll(): Promise<Patient[]> {
+    return this.patientRepo.find({
+      relations: ['clinic'],
+      order: { id: 'DESC' }, // optional: newest first
+    });
   }
 
   /**
