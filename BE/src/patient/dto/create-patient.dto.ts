@@ -39,7 +39,10 @@ export class CreatePatientDto {
   gender: 'M' | 'F';
 
   @IsNotEmpty()
-  @IsDateString({}, { message: 'dateOfBirth must be a valid ISO date (YYYY-MM-DD).' })
+  @IsDateString(
+    {},
+    { message: 'dateOfBirth must be a valid ISO date (YYYY-MM-DD).' },
+  )
   dateOfBirth: string;
 
   @IsNotEmpty()

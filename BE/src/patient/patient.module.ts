@@ -7,10 +7,7 @@ import { PatientController } from './patient.controller';
 import { ClinicModule } from '../clinic/clinic.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Patient, Clinic]),  
-    ClinicModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Patient, Clinic]), ClinicModule],
   providers: [PatientService],
   controllers: [PatientController],
 })
