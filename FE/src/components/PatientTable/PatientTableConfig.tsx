@@ -1,9 +1,8 @@
-// PatientTableConfig.tsx - Just import and use the store directly
 import { IconButton, Tooltip, Typography } from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import type { Patient } from "../../models/Patient";
 import type { TableConfiguration } from "./interface/TableConfiguration";
-import { usePatientStore } from "../../stores/patientStore"; // Import the store
+import { usePatientStore } from "../../stores/patientStore";
 
 export const PATIENT_TABLE_CONFIG: TableConfiguration<Patient> = {
   columns: [
@@ -67,11 +66,13 @@ export const PATIENT_TABLE_CONFIG: TableConfiguration<Patient> = {
       sortable: false,
       minWidth: 100,
       render: (patient: Patient) => (
-        <IconButton 
-          size="small" 
+        <IconButton
+          size="small"
           color="error"
           onClick={() => {
-            if (window.confirm('Are you sure you want to delete this patient?')) {
+            if (
+              window.confirm("Are you sure you want to delete this patient?")
+            ) {
               usePatientStore.getState().deletePatient(patient.id);
             }
           }}
