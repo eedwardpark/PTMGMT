@@ -7,18 +7,16 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { useTableState } from "../../hooks/useTableState";
+import { useState, useMemo, useCallback } from "react";
 import { useSelection } from "../../hooks/useSelection";
-import { useDataProcessing } from "../../hooks/useDataProcessing";
 import { ConfigurableRow } from "./ConfigureRow";
 import type { TableConfiguration } from "./interface/TableConfiguration";
 import { PatientTableHeader } from "./PatientTableHeader";
+import { sortData } from "../../utils/sortingUtils";
 
 interface ConfigureTableProps<T extends { id: number }> {
-  data: T[];
+  data: T[]; // Already filtered data from store
   configuration: TableConfiguration<T>;
-  searchTerm: string;
-  searchFields: (keyof T)[];
   loading?: boolean;
   emptyMessage?: string;
 }
@@ -26,38 +24,45 @@ interface ConfigureTableProps<T extends { id: number }> {
 export const ConfigureTable = <T extends { id: number }>({
   data,
   configuration,
-  searchTerm,
-  searchFields,
   loading = false,
   emptyMessage = "No data found",
 }: ConfigureTableProps<T>) => {
-  const {
-    orderBy,
-    orderDir,
-    page,
-    rowsPerPage,
-    handleSort,
-    handlePageChange,
-    handleRowsPerPageChange,
-  } = useTableState({
-    data,
-    searchTerm,
-    defaultSort: configuration.defaultSort,
-    defaultOrder: configuration.defaultOrder,
-  });
+  const [orderBy, setOrderBy] = useState<keyof T>(configuration.defaultSort);
+  const [orderDir, setOrderDir] = useState<"asc" | "desc">(configuration.defaultOrder);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const { paginatedData, totalCount } = useDataProcessing({
-    data,
-    searchTerm,
-    searchFields,
-    orderBy,
-    orderDir,
-    page,
-    rowsPerPage,
-  });
+  const sortedData = useMemo(() => {
+    return sortData(data, orderBy, orderDir);
+  }, [data, orderBy, orderDir]);
 
-  const { selectionState, handleSelectAll, handleSelectOne } =
-    useSelection(paginatedData);
+  const paginatedData = useMemo(() => {
+    const start = page * rowsPerPage;
+    return sortedData.slice(start, start + rowsPerPage);
+  }, [sortedData, page, rowsPerPage]);
+
+  const { selectionState, handleSelectAll, handleSelectOne } = useSelection(paginatedData);
+
+  const handleSort = useCallback(
+    (column: keyof T) => {
+      const isAsc = orderBy === column && orderDir === "asc";
+      setOrderBy(column);
+      setOrderDir(isAsc ? "desc" : "asc");
+    },
+    [orderBy, orderDir]
+  );
+
+  const handlePageChange = useCallback((_: unknown, newPage: number) => {
+    setPage(newPage);
+  }, []);
+
+  const handleRowsPerPageChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+    },
+    []
+  );
 
   if (loading) {
     return (
@@ -70,7 +75,7 @@ export const ConfigureTable = <T extends { id: number }>({
   return (
     <Paper sx={{ borderRadius: 2, overflow: "hidden" }}>
       <TableContainer>
-        <Table size="small" stickyHeader>
+        <Table stickyHeader size="small">
           <PatientTableHeader
             columns={configuration.columns}
             orderBy={orderBy}
@@ -95,7 +100,7 @@ export const ConfigureTable = <T extends { id: number }>({
 
       <TablePagination
         component="div"
-        count={totalCount}
+        count={data.length}
         page={page}
         onPageChange={handlePageChange}
         rowsPerPage={rowsPerPage}
@@ -103,7 +108,7 @@ export const ConfigureTable = <T extends { id: number }>({
         rowsPerPageOptions={configuration.rowsPerPageOptions}
       />
 
-      {totalCount === 0 && (
+      {data.length === 0 && (
         <Box textAlign="center" py={4}>
           <Typography color="text.secondary">{emptyMessage}</Typography>
         </Box>
