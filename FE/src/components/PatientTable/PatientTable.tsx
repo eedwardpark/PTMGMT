@@ -8,18 +8,11 @@ import { PATIENT_TABLE_CONFIG } from "./PatientTableConfig";
 export const PatientTable: React.FC = () => {
   const { loading, getFilteredPatients } = usePatientStoreWithAutoInit();
 
-  const handleAddPatient = () => {
-    console.log("Add new patient clicked");
-  };
-
   return (
     <Box
       sx={{ p: 3, height: "100vh", display: "flex", flexDirection: "column" }}
     >
       <PatientPageHeader
-        onAddClick={handleAddPatient}
-        searchPlaceholder="Search Patients"
-        addButtonText="ADD NEW PATIENT"
       />
 
       <ConfigureTable
