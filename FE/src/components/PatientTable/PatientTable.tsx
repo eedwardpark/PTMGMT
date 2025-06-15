@@ -12,8 +12,7 @@ export const PatientTable: React.FC = () => {
     <Box
       sx={{ p: 3, height: "100vh", display: "flex", flexDirection: "column" }}
     >
-      <PatientPageHeader
-      />
+      <PatientPageHeader />
 
       <ConfigureTable
         data={getFilteredPatients()}

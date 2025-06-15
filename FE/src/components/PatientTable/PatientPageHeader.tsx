@@ -1,14 +1,18 @@
 import React from "react";
 import { Box, TextField, Button, InputAdornment } from "@mui/material";
 import { Search as SearchIcon, Add as AddIcon } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import { usePatientStore } from "../../stores/patientStore";
 
-interface PatientPageHeaderProps {
-}
+interface PatientPageHeaderProps {}
 
-export const PatientPageHeader: React.FC<PatientPageHeaderProps> = ({
-}) => {
+export const PatientPageHeader: React.FC<PatientPageHeaderProps> = () => {
+  const navigate = useNavigate();
   const { searchTerm, setSearchTerm } = usePatientStore();
+
+  const handleAddClick = () => {
+    navigate('/patients/new');
+  };
 
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
@@ -28,6 +32,7 @@ export const PatientPageHeader: React.FC<PatientPageHeaderProps> = ({
       <Button
         variant="contained"
         startIcon={<AddIcon />}
+        onClick={handleAddClick}
         size="small"
         sx={{
           fontSize: "0.875rem",
