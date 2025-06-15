@@ -1,4 +1,4 @@
-import {create} from "zustand";
+import { create } from "zustand";
 import type { PatientDto } from "../models/PatientDto";
 import type { Patient } from "../models/Patient";
 import React from "react";
@@ -10,6 +10,7 @@ interface PatientState {
   error: string | null;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  getFilteredPatients: () => Patient[];
   fetchPatients: () => Promise<void>;
   addPatient: (dto: PatientDto) => Promise<void>;
   deletePatient: (id: number) => Promise<void>;
@@ -19,8 +20,25 @@ export const usePatientStore = create<PatientState>((set, get) => ({
   patients: [],
   loading: false,
   error: null,
-  searchTerm: '',
+  searchTerm: "",
+
   setSearchTerm: (term: string) => set({ searchTerm: term }),
+
+  getFilteredPatients: () => {
+    const { patients, searchTerm } = get();
+
+    if (!searchTerm.trim()) {
+      return patients;
+    }
+
+    const term = searchTerm.toLowerCase();
+    return patients.filter(
+      (patient) =>
+        patient.firstName.toLowerCase().includes(term) ||
+        patient.lastName.toLowerCase().includes(term) ||
+        (patient.middleName && patient.middleName.toLowerCase().includes(term))
+    );
+  },
 
   fetchPatients: async () => {
     set({ loading: true, error: null });
@@ -59,7 +77,7 @@ export const usePatientStore = create<PatientState>((set, get) => ({
 
 export const usePatientStoreWithAutoInit = () => {
   const store = usePatientStore();
-  
+
   React.useEffect(() => {
     if (store.patients.length === 0 && !store.loading) {
       store.fetchPatients();
