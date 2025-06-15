@@ -32,7 +32,6 @@ export const useTableState = <T>({
     setPage(0);
   }, []);
 
-  // Reset page when search changes
   const adjustedPage = useMemo(() => {
     const maxPage = Math.max(0, Math.ceil(data.length / rowsPerPage) - 1);
     return Math.min(page, maxPage);
