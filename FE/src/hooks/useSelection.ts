@@ -7,14 +7,14 @@ export const useSelection = <T extends { id: number }>(items: T[]) => {
     (checked: boolean) => {
       setSelected(checked ? items.map((item) => item.id) : []);
     },
-    [items]
+    [items],
   );
 
   const handleSelectOne = useCallback((id: number) => {
     setSelected((prev) =>
       prev.includes(id)
         ? prev.filter((selectedId) => selectedId !== id)
-        : [...prev, id]
+        : [...prev, id],
     );
   }, []);
 
@@ -25,7 +25,7 @@ export const useSelection = <T extends { id: number }>(items: T[]) => {
       isAllSelected: selected.length > 0 && selected.length === items.length,
       isIndeterminate: selected.length > 0 && selected.length < items.length,
     }),
-    [selected, items]
+    [selected, items],
   );
 
   return {

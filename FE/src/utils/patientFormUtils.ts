@@ -1,7 +1,7 @@
 import type { PatientFormData } from "../components/PatientForm/interface/PatientFormData";
 
 export const validateForm = (
-  formData: PatientFormData
+  formData: PatientFormData,
 ): Partial<PatientFormData> => {
   const errors: Partial<PatientFormData> = {};
 
@@ -14,9 +14,9 @@ export const validateForm = (
   if (!formData.firstName.trim()) {
     errors.firstName = "First name is required";
   }
-//   if (!formData.gender) {
-//     errors.gender = "Gender is required";
-//   }
+  //   if (!formData.gender) {
+  //     errors.gender = "Gender is required";
+  //   }
   if (!formData.dateOfBirth) {
     errors.dateOfBirth = "Date of birth is required";
   }
@@ -39,7 +39,7 @@ export const formatPhoneNumber = (value: string): string => {
   } else {
     return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 6)}-${cleaned.slice(
       6,
-      10
+      10,
     )}`;
   }
 };

@@ -7,7 +7,7 @@ export interface Patient {
   lastName: string;
   firstName: string;
   middleName: string | null;
-  gender: 'M' | 'F';
+  gender: "M" | "F";
   dateOfBirth: string;
   phone: string;
   ehrId: string;

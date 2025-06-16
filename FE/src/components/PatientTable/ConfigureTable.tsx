@@ -28,7 +28,9 @@ export const ConfigureTable = <T extends { id: number }>({
   emptyMessage = "No data found",
 }: ConfigureTableProps<T>) => {
   const [orderBy, setOrderBy] = useState<keyof T>(configuration.defaultSort);
-  const [orderDir, setOrderDir] = useState<"asc" | "desc">(configuration.defaultOrder);
+  const [orderDir, setOrderDir] = useState<"asc" | "desc">(
+    configuration.defaultOrder,
+  );
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -41,7 +43,8 @@ export const ConfigureTable = <T extends { id: number }>({
     return sortedData.slice(start, start + rowsPerPage);
   }, [sortedData, page, rowsPerPage]);
 
-  const { selectionState, handleSelectAll, handleSelectOne } = useSelection(paginatedData);
+  const { selectionState, handleSelectAll, handleSelectOne } =
+    useSelection(paginatedData);
 
   const handleSort = useCallback(
     (column: keyof T) => {
@@ -49,7 +52,7 @@ export const ConfigureTable = <T extends { id: number }>({
       setOrderBy(column);
       setOrderDir(isAsc ? "desc" : "asc");
     },
-    [orderBy, orderDir]
+    [orderBy, orderDir],
   );
 
   const handlePageChange = useCallback((_: unknown, newPage: number) => {
@@ -61,7 +64,7 @@ export const ConfigureTable = <T extends { id: number }>({
       setRowsPerPage(parseInt(event.target.value, 10));
       setPage(0);
     },
-    []
+    [],
   );
 
   if (loading) {

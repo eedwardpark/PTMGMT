@@ -11,7 +11,7 @@ export const PatientPageHeader: React.FC<PatientPageHeaderProps> = () => {
   const { searchTerm, setSearchTerm } = usePatientStore();
 
   const handleAddClick = () => {
-    navigate('/patients/new');
+    navigate("/patients/new");
   };
 
   return (

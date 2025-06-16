@@ -36,7 +36,7 @@ export const usePatientStore = create<PatientState>((set, get) => ({
       (patient) =>
         patient.firstName.toLowerCase().includes(term) ||
         patient.lastName.toLowerCase().includes(term) ||
-        (patient.middleName && patient.middleName.toLowerCase().includes(term))
+        (patient.middleName && patient.middleName.toLowerCase().includes(term)),
     );
   },
 

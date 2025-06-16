@@ -1,27 +1,31 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AppBar, Container, Box } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import PatientListPage from "./page/PatientListPage";
 import { PatientForm } from "./components/PatientForm/PatientForm";
 
 export default function App() {
   return (
-    <Box sx={{ height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        height: "100vh",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <BrowserRouter>
-        <AppBar position="static" sx={{ flexShrink: 0 }}>
-          {/* Add your app bar content here if needed */}
-        </AppBar>
-        <Container 
+        <Container
           maxWidth={false}
-          sx={{ 
+          sx={{
             flex: 1,
             mt: 2,
             mb: 0,
             pt: 0,
             pb: 0,
-            height: '100%',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column'
+            height: "100%",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           <Routes>

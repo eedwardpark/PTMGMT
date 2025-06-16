@@ -4,7 +4,7 @@ export interface PatientDto {
   lastName: string;
   firstName: string;
   middleName?: string;
-  gender: 'M' | 'F';
+  gender: "M" | "F";
   dateOfBirth: string;
   phone: string;
   ehrId?: string;

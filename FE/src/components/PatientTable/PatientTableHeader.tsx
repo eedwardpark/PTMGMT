@@ -1,10 +1,16 @@
-import { TableHead, TableRow, TableCell, TableSortLabel, Checkbox } from '@mui/material';
-import type { TableColumn } from './interface/TableConfiguration';
+import {
+  TableHead,
+  TableRow,
+  TableCell,
+  TableSortLabel,
+  Checkbox,
+} from "@mui/material";
+import type { TableColumn } from "./interface/TableConfiguration";
 
 interface PatientTableHeaderProps<T> {
   columns: TableColumn<T>[];
   orderBy: keyof T;
-  orderDir: 'asc' | 'desc';
+  orderDir: "asc" | "desc";
   onSort: (column: keyof T) => void;
   selectionState: {
     isAllSelected: boolean;
@@ -23,7 +29,7 @@ export const PatientTableHeader = <T,>({
 }: PatientTableHeaderProps<T>) => (
   <TableHead>
     <TableRow>
-      <TableCell padding="checkbox" sx={{ backgroundColor: 'grey.50' }}>
+      <TableCell padding="checkbox" sx={{ backgroundColor: "grey.50" }}>
         <Checkbox
           indeterminate={selectionState.isIndeterminate}
           checked={selectionState.isAllSelected}
@@ -36,7 +42,7 @@ export const PatientTableHeader = <T,>({
           key={String(column.id)}
           sx={{
             minWidth: column.minWidth,
-            backgroundColor: 'grey.50',
+            backgroundColor: "grey.50",
             fontWeight: 600,
           }}
         >

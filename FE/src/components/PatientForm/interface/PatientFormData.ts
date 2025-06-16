@@ -4,18 +4,18 @@ export interface PatientFormData {
   lastName: string;
   firstName: string;
   middleName?: string;
-  gender: 'M' | 'F' | '';
+  gender: "M" | "F" | "";
   dateOfBirth: string;
   phone: string;
 }
 
 export const initialFormData: PatientFormData = {
-  clinicAcronym: '',
+  clinicAcronym: "",
   ltc: undefined,
-  lastName: '',
-  firstName: '',
+  lastName: "",
+  firstName: "",
   middleName: undefined,
-  gender: '',
-  dateOfBirth: '',
-  phone: '',
+  gender: "",
+  dateOfBirth: "",
+  phone: "",
 };
