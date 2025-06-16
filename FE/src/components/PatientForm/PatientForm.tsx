@@ -90,7 +90,7 @@ export const PatientForm: React.FC = () => {
       };
 
       await addPatient(patientDto);
-      // navigate('/patients');
+      navigate('/patients');
     } catch (error) {
       setSubmitError('Failed to create patient. Please try again.');
     }
