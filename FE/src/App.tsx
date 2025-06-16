@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AppBar, Container } from "@mui/material";
 import PatientListPage from "./page/PatientListPage";
-import { PatientForm } from "./components/PatientForm";
+import { PatientForm } from "./components/PatientForm/PatientForm";
 
 export default function App() {
   return (
