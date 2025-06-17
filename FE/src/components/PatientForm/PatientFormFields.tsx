@@ -43,10 +43,10 @@ export const PatientFormFields: React.FC<PatientFormFieldsProps> = ({
             error={!!formErrors.clinicAcronym}
             variant="standard"
           >
-            <InputLabel>Clinic*</InputLabel>
+            <InputLabel>Clinic *</InputLabel>
             <Select
               value={formData.clinicAcronym}
-              label="Clinic*"
+              label="Clinic *"
               onChange={handleSelectChange("clinicAcronym")}
             >
               <MenuItem value="">
@@ -79,7 +79,7 @@ export const PatientFormFields: React.FC<PatientFormFieldsProps> = ({
         <Box sx={{ flex: 1, minWidth: "200px" }}>
           <TextField
             fullWidth
-            label="Last Name*"
+            label="Last Name"
             value={formData.lastName}
             onChange={handleInputChange("lastName")}
             error={!!formErrors.lastName}
@@ -92,7 +92,7 @@ export const PatientFormFields: React.FC<PatientFormFieldsProps> = ({
         <Box sx={{ flex: 1, minWidth: "200px" }}>
           <TextField
             fullWidth
-            label="First Name*"
+            label="First Name"
             value={formData.firstName}
             onChange={handleInputChange("firstName")}
             error={!!formErrors.firstName}
@@ -119,10 +119,10 @@ export const PatientFormFields: React.FC<PatientFormFieldsProps> = ({
       <Box sx={{ display: "flex", gap: 3, flexWrap: "wrap" }}>
         <Box sx={{ flex: 1, minWidth: "250px" }}>
           <FormControl fullWidth error={!!formErrors.gender} variant="standard">
-            <InputLabel>Gender*</InputLabel>
+            <InputLabel>Gender *</InputLabel>
             <Select
               value={formData.gender}
-              label="Gender*"
+              label="Gender"
               onChange={handleSelectChange("gender")}
             >
               <MenuItem value="">
@@ -137,7 +137,7 @@ export const PatientFormFields: React.FC<PatientFormFieldsProps> = ({
         <Box sx={{ flex: 1, minWidth: "250px" }}>
           <TextField
             fullWidth
-            label="Date of Birth*"
+            label="Date of Birth"
             type="date"
             value={formData.dateOfBirth}
             onChange={handleDateChange}
@@ -166,7 +166,7 @@ export const PatientFormFields: React.FC<PatientFormFieldsProps> = ({
         <Box sx={{ flex: 1, minWidth: "250px", maxWidth: "400px" }}>
           <TextField
             fullWidth
-            label="Phone Number*"
+            label="Phone Number"
             value={formData.phone}
             onChange={handlePhoneChange}
             error={!!formErrors.phone}
